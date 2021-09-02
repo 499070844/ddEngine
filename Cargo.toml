@@ -1,0 +1,16 @@
+[package]
+name = "register_machine"
+version = "0.1.0"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[profile.dev]
+overflow-checks = false
+[profile.test]
+overflow-checks = false
+
+[dependencies]
+nom = "7.0.0"
+swc_ecmascript = { version = "0.62.0", features = ["utils", "visit", "parser"] }
+swc_common = "0.11.9"
