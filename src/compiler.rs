@@ -1,10 +1,16 @@
 #[cfg(test)]
+
+pub struct Compiler {
+}
+
 mod test {
   use std::path::Path;
 
   use swc_ecmascript::{
     ast::{ExprOrSpread, Program},
-    parser::{EsConfig, Parser, Syntax, lexer::Lexer, JscTarget, Capturing}};
+    parser::{EsConfig, Parser, Syntax, lexer::Lexer, JscTarget, Capturing},
+    visit::{noop_visit_type},
+  };
   use swc_common::{
     sync::Lrc,
     input::StringInput,

@@ -1,9 +1,12 @@
 function test() {
   var a, b;
-  console.info("test");
   a = 1;
   b = 2;
-  return a + b;
+  function inner() {
+    let c = 12;
+    return a + b + c;
+  }
+  return inner() + 10;
 }
 
 test()

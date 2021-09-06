@@ -24,7 +24,7 @@
                             0,
                         ),
                         hi: BytePos(
-                            89,
+                            135,
                         ),
                         ctxt: #0,
                     },
@@ -35,7 +35,7 @@
                                     16,
                                 ),
                                 hi: BytePos(
-                                    89,
+                                    135,
                                 ),
                                 ctxt: #0,
                             },
@@ -128,107 +128,7 @@
                                                 32,
                                             ),
                                             hi: BytePos(
-                                                53,
-                                            ),
-                                            ctxt: #0,
-                                        },
-                                        expr: Call(
-                                            CallExpr {
-                                                span: Span {
-                                                    lo: BytePos(
-                                                        32,
-                                                    ),
-                                                    hi: BytePos(
-                                                        52,
-                                                    ),
-                                                    ctxt: #0,
-                                                },
-                                                callee: Expr(
-                                                    Member(
-                                                        MemberExpr {
-                                                            span: Span {
-                                                                lo: BytePos(
-                                                                    32,
-                                                                ),
-                                                                hi: BytePos(
-                                                                    44,
-                                                                ),
-                                                                ctxt: #0,
-                                                            },
-                                                            obj: Expr(
-                                                                Ident(
-                                                                    Ident {
-                                                                        span: Span {
-                                                                            lo: BytePos(
-                                                                                32,
-                                                                            ),
-                                                                            hi: BytePos(
-                                                                                39,
-                                                                            ),
-                                                                            ctxt: #0,
-                                                                        },
-                                                                        sym: Atom('console' type=inline),
-                                                                        optional: false,
-                                                                    },
-                                                                ),
-                                                            ),
-                                                            prop: Ident(
-                                                                Ident {
-                                                                    span: Span {
-                                                                        lo: BytePos(
-                                                                            40,
-                                                                        ),
-                                                                        hi: BytePos(
-                                                                            44,
-                                                                        ),
-                                                                        ctxt: #0,
-                                                                    },
-                                                                    sym: Atom('info' type=inline),
-                                                                    optional: false,
-                                                                },
-                                                            ),
-                                                            computed: false,
-                                                        },
-                                                    ),
-                                                ),
-                                                args: [
-                                                    ExprOrSpread {
-                                                        spread: None,
-                                                        expr: Lit(
-                                                            Str(
-                                                                Str {
-                                                                    span: Span {
-                                                                        lo: BytePos(
-                                                                            45,
-                                                                        ),
-                                                                        hi: BytePos(
-                                                                            51,
-                                                                        ),
-                                                                        ctxt: #0,
-                                                                    },
-                                                                    value: Atom('test' type=inline),
-                                                                    has_escape: false,
-                                                                    kind: Normal {
-                                                                        contains_quote: true,
-                                                                    },
-                                                                },
-                                                            ),
-                                                        ),
-                                                    },
-                                                ],
-                                                type_args: None,
-                                            },
-                                        ),
-                                    },
-                                ),
-                                Expr(
-                                    ExprStmt {
-                                        span: Span {
-                                            lo: BytePos(
-                                                56,
-                                            ),
-                                            hi: BytePos(
-                                                62,
+                                                38,
                                             ),
                                             ctxt: #0,
                                         },
@@ -236,10 +136,10 @@
                                             AssignExpr {
                                                 span: Span {
                                                     lo: BytePos(
-                                                        56,
+                                                        32,
                                                     ),
                                                     hi: BytePos(
-                                                        61,
+                                                        37,
                                                     ),
                                                     ctxt: #0,
                                                 },
@@ -250,10 +150,10 @@
                                                             id: Ident {
                                                                 span: Span {
                                                                     lo: BytePos(
-                                                                        56,
+                                                                        32,
                                                                     ),
                                                                     hi: BytePos(
-                                                                        57,
+                                                                        33,
                                                                     ),
                                                                     ctxt: #0,
                                                                 },
@@ -269,10 +169,10 @@
                                                         Number {
                                                             span: Span {
                                                                 lo: BytePos(
-                                                                    60,
+                                                                    36,
                                                                 ),
                                                                 hi: BytePos(
-                                                                    61,
+                                                                    37,
                                                                 ),
                                                                 ctxt: #0,
                                                             },
@@ -288,10 +188,10 @@
                                     ExprStmt {
                                         span: Span {
                                             lo: BytePos(
-                                                65,
+                                                41,
                                             ),
                                             hi: BytePos(
-                                                71,
+                                                47,
                                             ),
                                             ctxt: #0,
                                         },
@@ -299,10 +199,10 @@
                                             AssignExpr {
                                                 span: Span {
                                                     lo: BytePos(
-                                                        65,
+                                                        41,
                                                     ),
                                                     hi: BytePos(
-                                                        70,
+                                                        46,
                                                     ),
                                                     ctxt: #0,
                                                 },
@@ -313,10 +213,10 @@
                                                             id: Ident {
                                                                 span: Span {
                                                                     lo: BytePos(
-                                                                        65,
+                                                                        41,
                                                                     ),
                                                                     hi: BytePos(
-                                                                        66,
+                                                                        42,
                                                                     ),
                                                                     ctxt: #0,
                                                                 },
@@ -332,10 +232,10 @@
                                                         Number {
                                                             span: Span {
                                                                 lo: BytePos(
-                                                                    69,
+                                                                    45,
                                                                 ),
                                                                 hi: BytePos(
-                                                                    70,
+                                                                    46,
                                                                 ),
                                                                 ctxt: #0,
                                                             },
@@ -347,14 +247,221 @@
                                         ),
                                     },
                                 ),
+                                Decl(
+                                    Fn(
+                                        FnDecl {
+                                            ident: Ident {
+                                                span: Span {
+                                                    lo: BytePos(
+                                                        59,
+                                                    ),
+                                                    hi: BytePos(
+                                                        64,
+                                                    ),
+                                                    ctxt: #0,
+                                                },
+                                                sym: Atom('inner' type=inline),
+                                                optional: false,
+                                            },
+                                            declare: false,
+                                            function: Function {
+                                                params: [],
+                                                decorators: [],
+                                                span: Span {
+                                                    lo: BytePos(
+                                                        50,
+                                                    ),
+                                                    hi: BytePos(
+                                                        110,
+                                                    ),
+                                                    ctxt: #0,
+                                                },
+                                                body: Some(
+                                                    BlockStmt {
+                                                        span: Span {
+                                                            lo: BytePos(
+                                                                67,
+                                                            ),
+                                                            hi: BytePos(
+                                                                110,
+                                                            ),
+                                                            ctxt: #0,
+                                                        },
+                                                        stmts: [
+                                                            Decl(
+                                                                Var(
+                                                                    VarDecl {
+                                                                        span: Span {
+                                                                            lo: BytePos(
+                                                                                73,
+                                                                            ),
+                                                                            hi: BytePos(
+                                                                                84,
+                                                                            ),
+                                                                            ctxt: #0,
+                                                                        },
+                                                                        kind: "let",
+                                                                        declare: false,
+                                                                        decls: [
+                                                                            VarDeclarator {
+                                                                                span: Span {
+                                                                                    lo: BytePos(
+                                                                                        77,
+                                                                                    ),
+                                                                                    hi: BytePos(
+                                                                                        83,
+                                                                                    ),
+                                                                                    ctxt: #0,
+                                                                                },
+                                                                                name: Ident(
+                                                                                    BindingIdent {
+                                                                                        id: Ident {
+                                                                                            span: Span {
+                                                                                                lo: BytePos(
+                                                                                                    77,
+                                                                                                ),
+                                                                                                hi: BytePos(
+                                                                                                    78,
+                                                                                                ),
+                                                                                                ctxt: #0,
+                                                                                            },
+                                                                                            sym: Atom('c' type=inline),
+                                                                                            optional: false,
+                                                                                        },
+                                                                                        type_ann: None,
+                                                                                    },
+                                                                                ),
+                                                                                init: Some(
+                                                                                    Lit(
+                                                                                        Num(
+                                                                                            Number {
+                                                                                                span: Span {
+                                                                                                    lo: BytePos(
+                                                                                                        81,
+                                                                                                    ),
+                                                                                                    hi: BytePos(
+                                                                                                        83,
+                                                                                                    ),
+                                                                                                    ctxt: #0,
+                                                                                                },
+                                                                                                value: 12.0,
+                                                                                            },
+                                                                                        ),
+                                                                                    ),
+                                                                                ),
+                                                                                definite: false,
+                                                                            },
+                                                                        ],
+                                                                    },
+                                                                ),
+                                                            ),
+                                                            Return(
+                                                                ReturnStmt {
+                                                                    span: Span {
+                                                                        lo: BytePos(
+                                                                            89,
+                                                                        ),
+                                                                        hi: BytePos(
+                                                                            106,
+                                                                        ),
+                                                                        ctxt: #0,
+                                                                    },
+                                                                    arg: Some(
+                                                                        Bin(
+                                                                            BinExpr {
+                                                                                span: Span {
+                                                                                    lo: BytePos(
+                                                                                        96,
+                                                                                    ),
+                                                                                    hi: BytePos(
+                                                                                        105,
+                                                                                    ),
+                                                                                    ctxt: #0,
+                                                                                },
+                                                                                op: "+",
+                                                                                left: Bin(
+                                                                                    BinExpr {
+                                                                                        span: Span {
+                                                                                            lo: BytePos(
+                                                                                                96,
+                                                                                            ),
+                                                                                            hi: BytePos(
+                                                                                                101,
+                                                                                            ),
+                                                                                            ctxt: #0,
+                                                                                        },
+                                                                                        op: "+",
+                                                                                        left: Ident(
+                                                                                            Ident {
+                                                                                                span: Span {
+                                                                                                    lo: BytePos(
+                                                                                                        96,
+                                                                                                    ),
+                                                                                                    hi: BytePos(
+                                                                                                        97,
+                                                                                                    ),
+                                                                                                    ctxt: #0,
+                                                                                                },
+                                                                                                sym: Atom('a' type=inline),
+                                                                                                optional: false,
+                                                                                            },
+                                                                                        ),
+                                                                                        right: Ident(
+                                                                                            Ident {
+                                                                                                span: Span {
+                                                                                                    lo: BytePos(
+                                                                                                        100,
+                                                                                                    ),
+                                                                                                    hi: BytePos(
+                                                                                                        101,
+                                                                                                    ),
+                                                                                                    ctxt: #0,
+                                                                                                },
+                                                                                                sym: Atom('b' type=inline),
+                                                                                                optional: false,
+                                                                                            },
+                                                                                        ),
+                                                                                    },
+                                                                                ),
+                                                                                right: Ident(
+                                                                                    Ident {
+                                                                                        span: Span {
+                                                                                            lo: BytePos(
+                                                                                                104,
+                                                                                            ),
+                                                                                            hi: BytePos(
+                                                                                                105,
+                                                                                            ),
+                                                                                            ctxt: #0,
+                                                                                        },
+                                                                                        sym: Atom('c' type=inline),
+                                                                                        optional: false,
+                                                                                    },
+                                                                                ),
+                                                                            },
+                                                                        ),
+                                                                    ),
+                                                                },
+                                                            ),
+                                                        ],
+                                                    },
+                                                ),
+                                                is_generator: false,
+                                                is_async: false,
+                                                type_params: None,
+                                                return_type: None,
+                                            },
+                                        },
+                                    ),
+                                ),
                                 Return(
                                     ReturnStmt {
                                         span: Span {
                                             lo: BytePos(
-                                                74,
+                                                113,
                                             ),
                                             hi: BytePos(
-                                                87,
+                                                133,
                                             ),
                                             ctxt: #0,
                                         },
@@ -363,43 +470,61 @@
                                                 BinExpr {
                                                     span: Span {
                                                         lo: BytePos(
-                                                            81,
+                                                            120,
                                                         ),
                                                         hi: BytePos(
-                                                            86,
+                                                            132,
                                                         ),
                                                         ctxt: #0,
                                                     },
                                                     op: "+",
-                                                    left: Ident(
-                                                        Ident {
+                                                    left: Call(
+                                                        CallExpr {
                                                             span: Span {
                                                                 lo: BytePos(
-                                                                    81,
+                                                                    120,
                                                                 ),
                                                                 hi: BytePos(
-                                                                    82,
+                                                                    127,
                                                                 ),
                                                                 ctxt: #0,
                                                             },
-                                                            sym: Atom('a' type=inline),
-                                                            optional: false,
+                                                            callee: Expr(
+                                                                Ident(
+                                                                    Ident {
+                                                                        span: Span {
+                                                                            lo: BytePos(
+                                                                                120,
+                                                                            ),
+                                                                            hi: BytePos(
+                                                                                125,
+                                                                            ),
+                                                                            ctxt: #0,
+                                                                        },
+                                                                        sym: Atom('inner' type=inline),
+                                                                        optional: false,
+                                                                    },
+                                                                ),
+                                                            ),
+                                                            args: [],
+                                                            type_args: None,
                                                         },
                                                     ),
-                                                    right: Ident(
-                                                        Ident {
-                                                            span: Span {
-                                                                lo: BytePos(
-                                                                    85,
-                                                                ),
-                                                                hi: BytePos(
-                                                                    86,
-                                                                ),
-                                                                ctxt: #0,
+                                                    right: Lit(
+                                                        Num(
+                                                            Number {
+                                                                span: Span {
+                                                                    lo: BytePos(
+                                                                        130,
+                                                                    ),
+                                                                    hi: BytePos(
+                                                                        132,
+                                                                    ),
+                                                                    ctxt: #0,
+                                                                },
+                                                                value: 10.0,
                                                             },
-                                                            sym: Atom('b' type=inline),
-                                                            optional: false,
-                                                        },
+                                                        ),
                                                     ),
                                                 },
                                             ),
@@ -421,10 +546,10 @@
         ExprStmt {
             span: Span {
                 lo: BytePos(
-                    91,
+                    137,
                 ),
                 hi: BytePos(
-                    97,
+                    143,
                 ),
                 ctxt: #0,
             },
@@ -432,10 +557,10 @@
                 CallExpr {
                     span: Span {
                         lo: BytePos(
-                            91,
+                            137,
                         ),
                         hi: BytePos(
-                            97,
+                            143,
                         ),
                         ctxt: #0,
                     },
@@ -444,10 +569,10 @@
                             Ident {
                                 span: Span {
                                     lo: BytePos(
-                                        91,
+                                        137,
                                     ),
                                     hi: BytePos(
-                                        95,
+                                        141,
                                     ),
                                     ctxt: #0,
                                 },
