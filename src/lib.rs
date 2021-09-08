@@ -13,7 +13,7 @@ pub struct RegisterMachine {
     program_counter: usize,
     acc: Option<u64>,
     register: HashMap<u64, u64>,
-    context: InterpreterContext,
+    // context: InterpreterContext,
 }
 
 impl RegisterMachine {
@@ -34,7 +34,7 @@ impl RegisterMachine {
             program_counter: 0,
             acc: None,
             register: HashMap::new(),
-            context: InterpreterContext {},
+            // context: InterpreterContext {},
         }
     }
 }
