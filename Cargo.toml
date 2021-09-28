@@ -11,7 +11,7 @@ overflow-checks = false
 overflow-checks = false
 
 [dependencies]
-nom = "7.0.0"
-swc_ecmascript = { version = "0.63.0", features = ["utils", "visit", "parser"] }
-swc_common = "0.12.0"
+swc_ecmascript = { version = "0.67.0", features = ["utils", "visit", "parser"] }
+swc_common = "0.13.0"
 swc_atoms = "0.2.7"
+libc = "0.2.103"
