@@ -1,10 +1,13 @@
 
 
 #[cfg(unix)] mod _unix {
+    use std::ops::Add;
+
     use libc;
     pub struct Mmap {
-        pub start: *mut u8,
-        pub size: usize,
+        start: *mut u8,
+        size: usize,
+        end: *mut u8,
     }
 
     impl Mmap {
@@ -17,11 +20,33 @@
                     -1,
                     0
                 );
-                return Mmap {
+                // TODO: We can perform libc::madvise here to expect page references in some order
+                if p == libc::MAP_FAILED {
+                    panic!("Mmap failed!!!!");
+                }
+
+                Mmap {
                     start: p as *mut u8,
                     size,
+                    end: ( p as usize + size ) as *mut u8,
                 }
             }
+        }
+
+        pub fn p_start(&self) -> *mut u8 {
+            self.start
+        }
+
+        pub fn size(&self) -> usize {
+            self.size
+        }
+
+        pub fn p_end(&self) -> *mut u8 {
+            self.end
+        }
+
+        pub fn align(&self) -> *mut u8 {
+            unsafe { self.start.add(1) }
         }
     }
 
