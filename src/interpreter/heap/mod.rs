@@ -9,7 +9,7 @@ mod test {
     use std::process;
     #[test]
     fn mmap_work() {
-        let alloc = ImplictAlloc::new();
+        let mut alloc = ImplictAlloc::new();
         println!("I'm in pid: {}", process::id());
         let mut a = 0;
         loop {
