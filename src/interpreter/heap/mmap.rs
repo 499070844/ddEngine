@@ -13,7 +13,8 @@
     impl Mmap {
         pub fn new(size: usize) -> Mmap {
             unsafe {
-                let p = libc::mmap(core::ptr::null_mut(),
+                let p = libc::mmap(
+                    core::ptr::null_mut(),
                     size,
                     libc::PROT_WRITE | libc::PROT_READ,
                     libc::MAP_ANON | libc::MAP_PRIVATE,

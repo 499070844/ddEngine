@@ -18,4 +18,15 @@ mod test {
             a += 1;
         }
     }
+
+    #[test]
+    fn mask_work() {
+        let t = 0b10001usize;
+        assert_eq!(ImplictAlloc::get_size(t), 0b10000);
+        assert_eq!(ImplictAlloc::get_size(0b110000), 0b110000);
+        assert_eq!(ImplictAlloc::get_size(0b110010), 0b110010);
+        assert_eq!(ImplictAlloc::get_size(0b110011), 0b110010);
+        assert_eq!(ImplictAlloc::get_size(0b0), 0b0);
+        assert_eq!(ImplictAlloc::get_size(0b1), 0b0);
+    }
 }
