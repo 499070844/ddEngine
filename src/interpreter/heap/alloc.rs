@@ -77,7 +77,9 @@ impl ImplictAlloc {
             // save original block size
             let elder_size = *_h_p;
             let new_size = size + HEAD_SIZE;
-            // let new_size = padding(size + HEAD_SIZE);
+            // | H | B B B B B
+            //     16 (16-5) + 5 + HEAD_SIZE
+            // let new_size = padding(size) + HEAD_SIZE;
             *_h_p = new_size | 0x01;
             let _pair_p = h_p.add(new_size) as *mut usize;
             *_pair_p = elder_size - new_size;
@@ -85,14 +87,21 @@ impl ImplictAlloc {
         todo!()
     }
 
-    /// Return 0 when no need pad to align
+    /// Return size after padding
+    /// # Painc
+    /// - size + 16 overflow
     #[inline]
     fn padding(size: usize) -> usize {
-      if size & ALIGN_MASK == 0 {
-        return size
-      }
-      // 0b10010
-      todo!()
+        let l4sb = size & ALIGN_MASK;
+        if l4sb == 0 {
+            return size
+        }
+        let pad = ALIGNMENT - l4sb;
+        let res = size + pad;
+        if res < size {
+            panic!("Can't padding the block cause by overflow");
+        }
+        res
     }
 
     #[inline]
@@ -120,5 +129,17 @@ impl ImplictAlloc {
     #[inline]
     fn block_pointer(h_p: *mut u8) -> *mut u8 {
       unsafe { h_p.add(HEAD_SIZE) }
+    }
+}
+#[cfg(test)]
+mod alloc_test {
+    use super::*;
+    #[test]
+    fn padding_test() {
+        assert_eq!(16, ImplictAlloc::padding(15));
+        assert_eq!(16, ImplictAlloc::padding(14));
+        assert_eq!(1600, ImplictAlloc::padding(1600));
+        assert_eq!(1600, ImplictAlloc::padding(1598));
+        assert_eq!(1600, ImplictAlloc::padding(1598));
     }
 }
