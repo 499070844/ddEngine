@@ -1,3 +1,5 @@
+use core::panic;
+
 use super::mmap::Mmap;
 
 /// 8 bytes one header
@@ -24,7 +26,8 @@ pub struct ImplictAlloc {
 impl ImplictAlloc {
     pub fn new() -> ImplictAlloc {
         let mut alloc = ImplictAlloc {
-            mmap: Mmap::new(8 * 1024),
+            // mmap: Mmap::new(8 * 1024),
+            mmap: Mmap::new(8 * 1023),
             start: std::ptr::null_mut(),
         };
         alloc.init();
@@ -46,29 +49,48 @@ impl ImplictAlloc {
                 panic!("Can't not init memory again");
             }
             // First Block is free so we don't need OR 0x01
-            *first_header = self.mmap.size() - first_offset - 1; // - 1 是 end block
+            // Here must be 16 的倍数！！ end 那里可以用来对齐
+            if self.mmap.size() < 16 {
+                panic!("Can't init memory less than 16");
+            }
+            let (init_size, end_size) = Self::bottom_align(self.mmap.size() - first_offset);
+            *first_header = init_size;
+            // Init end block
+            // TODO: We need calculate end pointer
+            let end_pointer = self.mmap.p_end().sub(end_size) as *mut usize;
+            *end_pointer = 0 | 0x01;
             println!("first header pointer: {:#?}", first_header);
             println!(
-                "We get a block with size {}",
-                *(first_header.sub(8) as *mut usize)
+                "We got the first block with size {}, and end block with size {}",
+                *(first_header as *mut usize),
+                *(end_pointer as *mut usize)
             );
             self.start = first_header as *mut u8;
-            *self.mmap.p_end() = 0 | 0x01;
         }
+    }
+
+    fn spilt(&self, h_p: *mut u8, a_size: usize, b_size: usize) {
+
     }
 
     /// Step 1: Find a fit block
     /// Step 2: Split the block
     /// Step 3: Check alignment (pad)
+    /// 地址是16n header地址是 (8 + 16n) * 13 + 8 => (13 * 8 + 16n * 13) + 8 无法被16整除，所以size一定是16的倍数
+    /// Size 一定是 16的倍数
     pub fn first_fit(&self, size: usize) -> *mut u8 {
+        if size == 0 { panic!("Size can't be 0"); }
         unsafe {
           // Step 1
             let mut h_p = self.start;
+            let new_size = Self::padding(size + HEAD_SIZE);
             while !Self::is_end(*(h_p as *mut usize))
                 && (!Self::is_free(*(h_p as *mut usize))
-                    || Self::get_size(*(h_p as *mut usize)) <= size)
+                    // 为什么要 >= ?
+                    // 因为每次分配都要切分 原来空闲的 Block。要是 原 Block == 新 Block 则无法切分
+                    || Self::block_size(*(h_p as *mut usize)) <= new_size)
             {
-                h_p = h_p.add(*(h_p as *mut usize));
+                h_p = h_p.add(Self::block_size(*(h_p as *mut usize)));
             }
             if Self::is_end(*(h_p as *mut usize)) { panic!("Can't find a fit block after traveling all blocks!!!!"); }
             // Step 2
@@ -76,15 +98,13 @@ impl ImplictAlloc {
             let _h_p = h_p as *mut usize;
             // save original block size
             let elder_size = *_h_p;
-            let new_size = size + HEAD_SIZE;
-            // | H | B B B B B
-            //     16 (16-5) + 5 + HEAD_SIZE
-            // let new_size = padding(size) + HEAD_SIZE;
             *_h_p = new_size | 0x01;
-            let _pair_p = h_p.add(new_size) as *mut usize;
-            *_pair_p = elder_size - new_size;
+            // Spilt free block
+            let _free_block_h = h_p.add(new_size) as *mut usize;
+            println!("Spilt the block, the next block at {:#?}", _free_block_h);
+            *_free_block_h = elder_size - new_size;
+            h_p.add(HEAD_SIZE)
         }
-        todo!()
     }
 
     /// Return size after padding
@@ -102,6 +122,27 @@ impl ImplictAlloc {
             panic!("Can't padding the block cause by overflow");
         }
         res
+    }
+    
+    /// Calculate inital block size, if size can't align 16 
+    /// # Return
+    /// - (A, B)
+    /// 
+    /// A: size after bottom align
+    /// 
+    /// B: number bigger than 16
+    /// - (0, x)
+    /// the input which less than 16
+    // TODO: 这里 尾端对齐 可以更加动态一些
+    #[inline]
+    fn bottom_align(size: usize) -> (usize, usize) {
+        let l4sb = size & ALIGN_MASK;
+        if l4sb < 8 {
+            let res = size - l4sb - ALIGNMENT;
+            if res > size || res == 0 { panic!("Overflow in bottom align"); }
+            return (res, l4sb + ALIGNMENT);
+        }
+        (size - l4sb, l4sb)
     }
 
     #[inline]
@@ -122,18 +163,23 @@ impl ImplictAlloc {
     }
 
     #[inline]
-    pub fn get_size(size: usize) -> usize {
-        !(0x01usize & size) & size
+    pub fn block_size(size: usize) -> usize {
+        !(0x01 & size) & size
     }
 
     #[inline]
     fn block_pointer(h_p: *mut u8) -> *mut u8 {
       unsafe { h_p.add(HEAD_SIZE) }
     }
+
+    fn is_align(p: *mut u8) -> bool {
+        p as usize & ALIGN_MASK == 0
+    }
 }
 #[cfg(test)]
 mod alloc_test {
     use super::*;
+    use rand::prelude::*;
     #[test]
     fn padding_test() {
         assert_eq!(16, ImplictAlloc::padding(15));
@@ -141,5 +187,35 @@ mod alloc_test {
         assert_eq!(1600, ImplictAlloc::padding(1600));
         assert_eq!(1600, ImplictAlloc::padding(1598));
         assert_eq!(1600, ImplictAlloc::padding(1598));
+        assert_eq!(288, ImplictAlloc::padding(275));
+    }
+
+    #[test]
+    #[should_panic]
+    fn first_fit_work() {
+        let mut rng = rand::thread_rng();
+        let alloc = ImplictAlloc::new();
+        for _ in 0..1000 {
+            let r_size: usize = rng.gen_range(1..1000);
+            println!("rng gen size {}", r_size);
+            let p = alloc.first_fit(r_size);
+        unsafe {
+            println!("size after padding: {} p: {:#?}", ImplictAlloc::block_size(*(p.sub(HEAD_SIZE) as *mut usize)), p); }
+            assert!(ImplictAlloc::is_align(p));
+        }
+    }
+
+    #[test]
+    fn bottom_align_work() {
+        assert_eq!(16, ImplictAlloc::bottom_align(29).0);
+        assert_eq!(13, ImplictAlloc::bottom_align(29).1);
+        assert_eq!(16, ImplictAlloc::bottom_align(33).0);
+        assert_eq!(17, ImplictAlloc::bottom_align(33).1);
+    }
+
+    #[test]
+    #[should_panic]
+    fn bottom_align_panic() {
+        ImplictAlloc::bottom_align(16);
     }
 }

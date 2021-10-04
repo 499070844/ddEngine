@@ -34,18 +34,22 @@
             }
         }
 
+        #[inline]
         pub fn p_start(&self) -> *mut u8 {
             self.start
         }
 
+        #[inline]
         pub fn size(&self) -> usize {
             self.size
         }
 
+        #[inline]
         pub fn p_end(&self) -> *mut u8 {
             self.end
         }
 
+        #[inline]
         pub fn align(&self) -> *mut u8 {
             unsafe { self.start.add(1) }
         }
